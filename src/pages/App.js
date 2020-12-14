@@ -41,6 +41,7 @@ export default function App() {
               <Todo
                 key={el.id}
                 todo={el}
+                handleAdd={todos.addItem}
                 handleUpdate={todos.updateItem}
                 handleToggle={todos.toggleItem}
                 handleRemove={todos.removeItem}
@@ -90,4 +91,5 @@ const ListWrapper = styled.div`
   height: 100%;
   grid-template-columns: auto;
   gap: 1em;
+  padding-top: 1em;
 `

@@ -5,6 +5,7 @@ import { H2 } from '../styles/TextStyles'
 import AddButton from './Buttons/AddButton'
 
 export default function Header({ todo, todos, handleSubmit }) {
+  console.log('TODOS: ', todos)
   return (
     <Wrapper>
       <AddButton
@@ -13,21 +14,19 @@ export default function Header({ todo, todos, handleSubmit }) {
       />
       <TextWrapper>
         <Title>Todos</Title>
-        <Title>{todos.number}</Title>
+        <Title>{todos.list.length}</Title>
       </TextWrapper>
     </Wrapper>
   )
 }
 
 Header.defaultProps = {
-  number: 0,
   todos: [],
   todo: {},
   handleSubmit: () => null,
 }
 
 Header.propTypes = {
-  number: PropTypes.number,
   // eslint-disable-next-line react/forbid-prop-types
   todo: PropTypes.object,
   todos: PropTypes.arrayOf(PropTypes.object),

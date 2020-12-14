@@ -12,7 +12,7 @@ const useArray = initialList => {
         {
           id: uuidv4(),
           text: '',
-          completed: false,
+          isCompleted: false,
           isEdit: true,
         },
       ])
@@ -31,7 +31,7 @@ const useArray = initialList => {
     },
     toggleItem: itemId => {
       const updatedItems = list.map(item =>
-        item.id === itemId ? { ...item, completed: !item.completed } : item
+        item.id === itemId ? { ...item, isCompleted: !item.isCompleted } : item
       )
       setList(updatedItems)
     },
