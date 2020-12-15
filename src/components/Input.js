@@ -2,29 +2,24 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
-export default function Input({ handleEnter, handleUpdate, id, text }) {
-  return (
-    <Wrapper
-      autoFocus
-      id="todo"
-      onKeyDown={event => handleEnter(event)}
-      onChange={event => handleUpdate(id, event.target.value)}
-      value={text}
-    />
-  )
-}
+export const Input = ({ onKeyDown, onChange, text }) => (
+  <Wrapper
+    autoFocus
+    onKeyDown={event => onKeyDown(event)}
+    onChange={event => onChange(event.target.value)}
+    value={text}
+  />
+)
 
 Input.defaultProps = {
-  handleEnter: () => null,
-  handleUpdate: () => null,
-  id: '',
+  onChange: () => null,
+  onKeyDown: () => null,
   text: '',
 }
 
 Input.propTypes = {
-  handleEnter: PropTypes.func,
-  handleUpdate: PropTypes.func,
-  id: PropTypes.string,
+  onChange: PropTypes.func,
+  onKeyDown: PropTypes.func,
   text: PropTypes.string,
 }
 
@@ -32,8 +27,8 @@ const Wrapper = styled.input`
   border: 1px solid rgba(229, 229, 229, 1);
   border-radius: 10px;
   padding: 0.5em 0.8em;
-  width: -webkit-fill-available;
   transition: 0.3s ease-out;
+  width: -webkit-fill-available;
 
   :focus {
     outline: none !important;

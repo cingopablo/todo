@@ -1,52 +1,50 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import { H2 } from '../styles/TextStyles'
-import AddButton from './Buttons/AddButton'
 
-export default function Header({ todo, todos, handleSubmit }) {
+import { H2 } from '../styles/TextStyles'
+import { AddButton } from './Buttons/AddButton'
+
+export const Header = ({ list, handleSubmit }) => {
+  const openTodos = () => list.filter(el => !el.isCompleted).length
+
   return (
     <Wrapper>
-      <AddButton
-        onClick={handleSubmit}
-        isActive={todo.text !== '' && todos.length > 0}
-      />
+      <AddButton onClick={handleSubmit} />
       <TextWrapper>
         <Title>Todos</Title>
-        <Title>{todos.list.length}</Title>
+        <Title>{openTodos()}</Title>
       </TextWrapper>
     </Wrapper>
   )
 }
 
 Header.defaultProps = {
-  todos: [],
-  todo: {},
   handleSubmit: () => null,
+  list: [],
 }
 
 Header.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
-  todo: PropTypes.object,
-  todos: PropTypes.arrayOf(PropTypes.object),
   handleSubmit: PropTypes.func,
+  list: PropTypes.arrayOf(PropTypes.object),
 }
 
 const Wrapper = styled.div`
-  background: rgba(255, 255, 255, 0.3);
   backdrop-filter: blur(40px);
-  //background-color: blueviolet;
-  //border-radius: inherit;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 20px 20px 0 0;
   height: fit-content;
-  width: 100%;
   padding: 1em 1.5em 1em;
+  width: 100%;
 `
 
 const TextWrapper = styled.div`
-  padding-top: 1.5em;
-  display: flex;
   align-items: center;
+  display: flex;
   justify-content: space-between;
+  padding-top: 1.5em;
 `
 
-const Title = styled(H2)``
+const Title = styled(H2)`
+  color: #2193b0;
+`

@@ -4,35 +4,34 @@ import styled from 'styled-components'
 
 import addIcon from '../../assets/icons/add.svg'
 
-export default function AddButton({ onClick, isActive }) {
-  return (
-    <Wrapper isActive={isActive} onClick={onClick}>
-      <img src={addIcon} alt="Add new todo" />
-    </Wrapper>
-  )
-}
+export const AddButton = ({ onClick, isActive }) => (
+  <Wrapper isActive={isActive} onClick={onClick}>
+    <img src={addIcon} alt="Add new todo" />
+  </Wrapper>
+)
 
 AddButton.defaultProps = {
-  onClick: () => null,
   isActive: true,
+  onClick: () => null,
 }
 
 AddButton.propTypes = {
-  onClick: PropTypes.func,
   isActive: PropTypes.bool,
+  onClick: PropTypes.func,
 }
 
 const Wrapper = styled.div`
-  cursor: pointer;
-  display: flex;
   align-items: center;
-  justify-content: center;
+  background-color: ${({ isActive }) => !isActive && 'rgba(242, 242, 242, 1)'};
   border-radius: 4px;
-  width: 24px;
+  cursor: ${({ isActive }) => (isActive ? 'pointer' : 'not-allowed')};
+  display: flex;
   height: 24px;
+  justify-content: center;
   margin-left: auto;
+  pointer-events: ${({ isActive }) => !isActive && 'none'};
   transition: all 0.3s ease-in-out;
-  background-color: ${({ isActive }) => isActive && 'rgba(242, 242, 242, 1)'};
+  width: 24px;
 
   :hover {
     background-color: rgba(242, 242, 242, 1);

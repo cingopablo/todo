@@ -1,70 +1,90 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-import React from 'react'
+import React, { useEffect } from 'react'
+import { connect, useDispatch } from 'react-redux'
+import PropTypes from 'prop-types'
 import styled from 'styled-components'
-import Todo from '../components/Todo'
-import useArray from '../hooks/useArray'
-import useInput from '../hooks/useInput'
-import Header from '../components/Header'
+
+import { Todo } from '../components/Todo'
+import { Header } from '../components/Header'
 import { H3 } from '../styles/TextStyles'
+import { actions, TODO_LOAD } from './AppActions'
 
-export default function App() {
-  const [todo, setTodo, resetTodo] = useInput('')
-  const todos = useArray([])
+function App({ list }) {
+  const dispatch = useDispatch()
 
-  const onSubmit = event => {
-    event.preventDefault()
-    todos.addItem(todo)
-  }
+  useEffect(() => {
+    const storedData = localStorage.getItem('todoList')
+    if (storedData !== null) {
+      dispatch({ type: TODO_LOAD, payload: { list: JSON.parse(storedData) } })
+    }
+  }, [])
 
   return (
     <Wrapper>
-      <Header todos={todos} todo={todo} handleSubmit={onSubmit} />
+      <Header
+        list={list}
+        handleSubmit={() => actions.addTODO(dispatch, list, 'click')}
+      />
       <ContentWrapper>
-        {todos.list.length > 0 ? (
+        {list.length > 0 ? (
           <ListWrapper>
-            {console.log('TODOS: ', todos)}
-            {todos.list.map(el => (
-              <Todo key={el.id} todo={el} todos={todos} />
+            {list.map(todo => (
+              <Todo key={todo.id} list={list} todo={todo} actions={actions} />
             ))}
           </ListWrapper>
         ) : (
-          <EmptyWrapper>no hay nada</EmptyWrapper>
+          <EmptyWrapper>There are no more items to do</EmptyWrapper>
         )}
       </ContentWrapper>
     </Wrapper>
   )
 }
 
+const mapStateToProps = ({ main: { list } }) => ({
+  list,
+})
+
+export default connect(mapStateToProps)(App)
+
+App.defaultProps = {
+  list: [],
+}
+
+App.propTypes = {
+  list: PropTypes.array,
+}
+
 const ContentWrapper = styled.div`
+  background: white;
+  border-radius: 0 0 20px 20px;
   display: grid;
+  height: calc(60vh - 120px);
+  overflow-y: auto;
 `
 
 const Wrapper = styled.div`
-  width: 600px;
-  height: 60vh;
   border: 2px solid transparent;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
   border-radius: 20px;
   box-shadow: 0px 50px 100px rgba(0, 0, 0, 0.25),
     inset 0px 0px 0px 0.5px rgba(255, 255, 255, 0.2);
+  height: 60vh;
+  left: 50%;
+  position: fixed;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
 `
 
 const EmptyWrapper = styled(H3)`
   color: rgba(188, 188, 188, 1);
   font-weight: initial;
+  padding-top: 2em;
   text-align: center;
-  margin: auto 0;
 `
 
 const ListWrapper = styled.div`
-  display: grid;
-  height: 100%;
-  grid-template-columns: auto;
+  display: flex;
+  flex-direction: column;
   gap: 1em;
+  height: 100%;
   padding-top: 1em;
 `

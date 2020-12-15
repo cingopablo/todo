@@ -1,14 +1,19 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import { Provider } from 'react-redux'
+
 import App from './pages/App'
 import reportWebVitals from './reportWebVitals'
-import Layout from './layout/layout'
+import { Layout } from './layout/layout'
+import store from './store/store'
 
 ReactDOM.render(
   <React.StrictMode>
-    <Layout>
-      <App />
-    </Layout>
+    <Provider store={store}>
+      <Layout>
+        <App />
+      </Layout>
+    </Provider>
   </React.StrictMode>,
   document.getElementById('root')
 )
