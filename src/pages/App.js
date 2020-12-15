@@ -5,7 +5,7 @@ import styled from 'styled-components'
 
 import { Todo } from '../components/Todo'
 import { Header } from '../components/Header'
-import { H3 } from '../styles/TextStyles'
+import { BodyIntro } from '../styles/TextStyles'
 import { actions, TODO_LOAD } from './AppActions'
 
 function App({ list }) {
@@ -71,12 +71,16 @@ const Wrapper = styled.div`
   position: fixed;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 600px;
+  width: 450px;
+
+  @media (max-width: 450px) {
+    height: 100vh;
+    width: 100%;
+  }
 `
 
-const EmptyWrapper = styled(H3)`
+const EmptyWrapper = styled(BodyIntro)`
   color: rgba(188, 188, 188, 1);
-  font-weight: initial;
   padding-top: 2em;
   text-align: center;
 `
