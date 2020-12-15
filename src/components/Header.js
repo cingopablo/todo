@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import styled from 'styled-components'
 
 import { H2 } from '../styles/TextStyles'
-import { AddButton } from './Buttons/AddButton'
+import { AddButton } from './Buttons/AddButton/AddButton'
 
 export const Header = ({ list, handleSubmit }) => {
   const openTodos = () => list.filter(el => !el.isCompleted).length

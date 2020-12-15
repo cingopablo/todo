@@ -81,6 +81,7 @@ const Wrapper = styled.div`
 
 const EmptyWrapper = styled(BodyIntro)`
   color: rgba(188, 188, 188, 1);
+  padding: 0 1em;
   padding-top: 2em;
   text-align: center;
 `

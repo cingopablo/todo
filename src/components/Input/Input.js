@@ -4,6 +4,7 @@ import styled from 'styled-components'
 
 export const Input = ({ onKeyDown, onChange, text }) => (
   <Wrapper
+    data-testid="input"
     autoFocus
     onKeyDown={event => onKeyDown(event)}
     onChange={event => onChange(event.target.value)}

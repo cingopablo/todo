@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux'
 
 import { DeleteButton } from './Buttons/DeleteButton'
 import { ToggleButton } from './Buttons/ToggleButton'
-import { Input } from './Input'
+import { Input } from './Input/Input'
 
 export const Todo = ({
   actions: { updateTODO, removeTODO, toggleTODO, addTODO },
