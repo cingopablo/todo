@@ -5,7 +5,6 @@ import { H2 } from '../styles/TextStyles'
 import AddButton from './Buttons/AddButton'
 
 export default function Header({ todo, todos, handleSubmit }) {
-  console.log('TODOS: ', todos)
   return (
     <Wrapper>
       <AddButton

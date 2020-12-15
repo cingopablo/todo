@@ -18,8 +18,6 @@ const useArray = initialList => {
       ])
     },
     updateItem: (id, textItem) => {
-      console.log('id: ', id)
-      console.log('textItem: ', textItem)
       const updatedItems = list.map(item =>
         item.id === id ? { ...item, text: textItem.trim() } : item
       )
@@ -32,6 +30,12 @@ const useArray = initialList => {
     toggleItem: itemId => {
       const updatedItems = list.map(item =>
         item.id === itemId ? { ...item, isCompleted: !item.isCompleted } : item
+      )
+      setList(updatedItems)
+    },
+    editItemOff: itemId => {
+      const updatedItems = list.map(item =>
+        item.id === itemId ? { ...item, isEdit: false } : item
       )
       setList(updatedItems)
     },
